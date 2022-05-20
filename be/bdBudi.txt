@@ -14,11 +14,20 @@ CREATE TABLE `findbunker`.`user` (
 
 CREATE TABLE `findbunker`.`bunker` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `admin_name` VARCHAR(45) NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `location` VARCHAR(45),
-  `maxCapacity` INT,
-  `freeSlots` INT,
+  `max_capacity` INT,
+  `free_slots` INT,
   `utilities` VARCHAR(45),
-  `isAvailable` TINYINT,
+  `available` TINYINT,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+
+CREATE TABLE `findbunker`.`rezervation` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `bunker_id` INT,
+  `refugee_id` INT,
+  `rezervation_start` DATE,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
