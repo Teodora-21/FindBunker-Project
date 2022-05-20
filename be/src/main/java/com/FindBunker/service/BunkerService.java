@@ -23,7 +23,6 @@ public class BunkerService {
     public Bunker save(Bunker bunker) {
         return bunkerRepository.save(bunker);
     }
-
     public Bunker delete(int bunkerId) {
         Bunker bunker = getById(bunkerId);
         bunkerRepository.delete(bunker);
