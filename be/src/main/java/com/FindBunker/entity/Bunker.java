@@ -11,6 +11,8 @@ public class Bunker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    @Column(name="admin_name")
+    String admin_name;
     @Column(name="name")
     String name;
     @Column(name="location")
