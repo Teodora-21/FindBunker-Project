@@ -1,9 +1,13 @@
 import react from 'react';
 import { GiBunker } from 'react-icons/gi';
 import { SiGoogleanalytics } from 'react-icons/si';
+import {useAuth0} from '@auth0/auth0-react';
+
 
 function Sidebar() {
-    return (
+    const { isAuthenticated, loginWithRedirect } = useAuth0();
+
+    return (isAuthenticated &&
         <div className='fixed top-[15%] min-w-min bottom-0 bg-custom_fade_green border-2 border-custom_light_blue' >
             <div className='flex flex-col space-y-2'>
                 <button className='hover:bg-slate-500 active:bg-slate-500 border-2 border-black'>

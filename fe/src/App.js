@@ -1,28 +1,24 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
-import Welcome from "./components/Welcome";
+import Welcome from "./container/Welcome";
+import Home from "./container/Home";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect } from "react";
-import Dashboard from "./components/Dashboard";
-import Bars from "./components/Bars";
 import Sidebar from "./components/Sidebar";
 import NavBar from "./components/Navbar";
-import Home from "./container/Home";
 
 function App() {
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
-
   return (
     <Router>
-      <div className="bg-gray-300 h-screen w-screen">
-        <NavBar />
-        <Sidebar />
+      <NavBar />
+      <Sidebar/>
+      <div className="bg-gray-300 h-screen w-screen -z-50">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Welcome />} />
+          <Route path="/home" element={<Home />} />
         </Routes>
       </div>
     </Router>
+
   );
 }
 

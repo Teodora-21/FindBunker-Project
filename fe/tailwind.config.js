@@ -10,6 +10,9 @@ module.exports = {
         custom_fade: '#CFB9A5',
         custom_cream: '#E8CCBF',
         custom_light_pink: '#E9D6EC',
+      },
+      backgroundImage: {
+        'background': "url('./assests/photos/welcome_background.jpg')"
       }
     },
   },
