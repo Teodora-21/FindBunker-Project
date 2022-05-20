@@ -1,0 +1,1 @@
+export const bunkers = [{name: 'Bunker1', capacity: '15/1300'}, {name: 'Bunker2', capacity: '500/1700'}, {name: 'Bunker2', capacity: '500/1700'}, {name: 'Bunker2', capacity: '500/1700'}, ] 
