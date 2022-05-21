@@ -20,10 +20,10 @@ function Login() {
                 .catch((response) => {
                     const body = {
                         email: user['email'],
-                        address: "null",
-                        fullName: user['family_name'] + user['given_name'],
+                        address: "",
+                        fullName: user['family_name'] + ' '+ user['given_name'],
                         identityId: identifyId,
-                        phone_number: "null" 
+                        phone_number: "" 
                     }
                     axios
                         .post("http://localhost:8080/user/", body)

@@ -1,15 +1,27 @@
-import react from 'react';
-import { bunkers }  from '../assests/data/bunker'
+import react, { useState, useEffect } from 'react';
 import Card from './Card';
+import axios from 'axios';
 
-function CardsList () {
+function CardsList() {
+    const [cards, setCards] = useState([]);
 
-    const cardsArray = bunkers.map(bunker => (
+    useEffect(() => {
+        axios
+            .get("http://localhost:8080/bunker/all")
+            .then((response) => {
+                setCards(response.data);
+            })
+            .catch((response) => {
+            });
+    }, [cards]);
+
+
+    const cardsArray = cards.map((bunker, i) => (
         <Card
-          name={bunker.name}
-          capacity={bunker.capacity}
-          />
-      ));
+            data={bunker}
+            key={i}
+        />
+    ));
 
     return (
         <div className='flex flex-wrap space-x-20 items-center justify-center'>
