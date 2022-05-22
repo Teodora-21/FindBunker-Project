@@ -5,6 +5,7 @@ import { AiFillDelete } from 'react-icons/ai';
 import { GoPrimitiveDot } from 'react-icons/go';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
 
 function CardInfo() {
     let { bunkerId } = useParams();
@@ -15,6 +16,8 @@ function CardInfo() {
     const [maxCapacity, setMaxCapacity] = useState();
     const [location, setLocation] = useState();
     const [utilities, setUtilities] = useState();
+    const [rooms, setRooms] = useState();
+    const { user } = useAuth0();
 
     useEffect(() => {
         axios
@@ -25,6 +28,7 @@ function CardInfo() {
                 setMaxCapacity(data.max_capacity);
                 setLocation(data.location);
                 setUtilities(data.utilities);
+                setRooms(data.rooms_number)
                 console.log(response);
             })
             .catch((response) => {
@@ -38,6 +42,7 @@ function CardInfo() {
         setMaxCapacity(data.max_capacity);
         setLocation(data.location);
         setUtilities(data.utilities);
+        setRooms(data.rooms_number)
     }
 
     const handleSave = () => {
@@ -52,6 +57,7 @@ function CardInfo() {
             admin_name: data.admin_name,
             available: data.available,
             free_slots: data.free_slots,
+            rooms_number: rooms
         }
 
         axios
@@ -79,18 +85,20 @@ function CardInfo() {
     return (
         <div className='fixed top-[20%] inset-x-[10%] w-[400px]'>
             <div className='fixed top-[20%] inset-x-[90%]'>
-                <div className='flex flex-row space-x-10'>
-                    <button onClick={handleClose}>
-                        <div className='scale-[200%] hover:bg-green-500 duration-200 rounded-md'>
-                            <AiFillEdit />
-                        </div>
-                    </button>
-                    <button onClick={handleDelete}>
-                        <div className='scale-[200%] hover:bg-red-500 duration-200 rounded-md'>
-                            <AiFillDelete />
-                        </div>
-                    </button>
-                </div>
+                {user['http://localhost/roles'] == 'bunker-admin' &&
+                    <div className='flex flex-row space-x-10'>
+                        <button onClick={handleClose}>
+                            <div className='scale-[200%] hover:bg-green-500 duration-200 rounded-md'>
+                                <AiFillEdit />
+                            </div>
+                        </button>
+                        <button onClick={handleDelete}>
+                            <div className='scale-[200%] hover:bg-red-500 duration-200 rounded-md'>
+                                <AiFillDelete />
+                            </div>
+                        </button>
+                    </div>
+                }
             </div>
             <div className='flex flex-col space-y-4 font-bold'>
                 <div className='flex flex-row space-x-5 items-center align-middle'>
@@ -98,7 +106,7 @@ function CardInfo() {
                         {data.name}
                     </div>
                     <div>
-                        {data.free_slots < data.max_capacity ? <GoPrimitiveDot size="2.5em" color="green"/> : <GoPrimitiveDot size="2.5em" color="red"/>}
+                        {data.free_slots < data.max_capacity ? <GoPrimitiveDot size="2.5em" color="green" /> : <GoPrimitiveDot size="2.5em" color="red" />}
                     </div>
                 </div>
                 <div>
@@ -116,14 +124,27 @@ function CardInfo() {
                 </div>
                 <div>
                     <span>Capacity: </span>
-                    {data.max_capacity}
+                    {`${data.free_slots} / ${data.max_capacity}`}
                 </div>
                 <div>
                     <span>Number of rooms: </span>
+                    {!edit ? data.rooms_number : <input className='bg-slate-200 rounded-lg' value={rooms} onChange={e => setRooms(e.target.value)} ></input>}
                 </div>
                 <div>
                     <span>Utilities: </span>
                     {!edit ? data.utilities : <input className='bg-slate-200 rounded-lg' value={utilities} onChange={e => setUtilities(e.target.value)} ></input>}
+                </div>
+
+                <div>
+                    <span>Contact</span>
+                </div>
+                <div>
+                    <span>Email: </span>
+                    {data.admin_email}
+                </div>
+                <div>
+                    <span>Number: </span>
+                    {data.admin_number}
                 </div>
                 {edit &&
                     <div className='flex flex-row space-x-5'>

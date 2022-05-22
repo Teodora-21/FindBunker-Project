@@ -14,6 +14,7 @@ function Login() {
             const identifyId = user['sub'].split("|")[1];
 
             console.log(user);
+            console.log(user['http://localhost/roles']);
 
             axios
                 .get("http://localhost:8080/user/identityId?" + "identifyId=" + identifyId)

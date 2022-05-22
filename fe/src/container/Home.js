@@ -28,13 +28,14 @@ function Home() {
 
     return (
         <div className='fixed top-[15%] inset-x-[125px] w-full h-full'>
+            {user['http://localhost/roles'] == "bunker-admin" &&
             <div className='relative top-[5%] inset-x-[80%]'>
                 <button className='bg-custom_light_blue hover:bg-green-400 rounded-md shadow-md' onClick={handleButton}>
                     <div className='p-2'>
                         Add bunker
                     </div>
                 </button>
-            </div>
+            </div>}
             <div className='relative top-[12%] flex flex-col items-start p-5'>
                 {<CardsList />}
             </div>
