@@ -1,6 +1,7 @@
 import react from 'react';
 import { GiBunker } from 'react-icons/gi';
 import { SiGoogleanalytics } from 'react-icons/si';
+import { FiMapPin } from 'react-icons/fi';
 import {useAuth0} from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,10 +19,16 @@ function Sidebar() {
                         <h1>Bunker</h1>
                     </div>
                 </button>
-                <button className='hover:bg-slate-500 active:bg-slate-500 border-2 border-black'>
+                <button className='hover:bg-slate-500 active:bg-slate-500 border-2 border-black' >
                     <div className='flex flex-row items-center p-1 space-x-3'>
-                        <SiGoogleanalytics color="black" size="40px" />
+                        <SiGoogleanalytics color="black" size="40px"  />
                         <h1>Analyse</h1>
+                    </div>
+                </button>
+                <button className='hover:bg-slate-500 active:bg-slate-500 border-2 border-black' onClick={() => navigate("/map")}>
+                    <div className='flex flex-row items-center p-1 space-x-3'>
+                        <FiMapPin color="black" size="40px" />
+                        <h1>Map</h1>
                     </div>
                 </button>
             </div>

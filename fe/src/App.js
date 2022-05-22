@@ -8,6 +8,7 @@ import NavBar from "./components/Navbar";
 import Profile from "./container/Profile";
 import CardInfo from "./container/CardInfo";
 import NotFound from "./container/NotFound";
+import Map from "./container/Map";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/bunkerinfo/:bunkerId" element={<CardInfo />} >
           </Route>
+          <Route path="/map" element={<Map />} ></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </div>

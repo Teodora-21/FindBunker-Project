@@ -13,6 +13,8 @@ function Login() {
         if (isAuthenticated === true) {
             const identifyId = user['sub'].split("|")[1];
 
+            console.log(user);
+
             axios
                 .get("http://localhost:8080/user/identityId?" + "identifyId=" + identifyId)
                 .then((response) => {
