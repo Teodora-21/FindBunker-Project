@@ -7,7 +7,7 @@ function LoginButton () {
 
     return (
         <div>
-            <button onClick={() => loginWithRedirect()} className="bg-green-500">
+            <button onClick={() => loginWithRedirect()} className="h-12 w-24 bg-custom_fade_green rounded-md hover:bg-slate-600 transition-transform">
                 Log In
             </button>
         </div>
