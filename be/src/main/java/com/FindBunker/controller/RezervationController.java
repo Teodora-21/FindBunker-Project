@@ -24,6 +24,16 @@ public class RezervationController {
         return ResponseEntity.status(HttpStatus.OK).body(rezervationService.getById(rezervationId));
     }
 
+    @GetMapping("/bunkerId")
+    public ResponseEntity getByBunkerId(@RequestParam(name = "bunker_id") int bunker_id) {
+        return ResponseEntity.status(HttpStatus.OK).body(rezervationService.getByBunkerId(bunker_id));
+    }
+
+    @GetMapping("/userId")
+    public ResponseEntity getByUserId(@RequestParam(name = "refugee_id") int refugee_id) {
+        return ResponseEntity.status(HttpStatus.OK).body(rezervationService.getByUserId(refugee_id));
+    }
+
     @PostMapping
     public ResponseEntity createRezervation(@RequestBody Rezervation rezervation) {
         return ResponseEntity.status(HttpStatus.CREATED).body(rezervationService.save(rezervation));

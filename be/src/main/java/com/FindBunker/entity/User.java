@@ -21,4 +21,6 @@ public class User {
     String phone_number;
     @Column(name="address")
     String address;
+    @Column(name="has_reservation")
+    int has_reservation;
 }

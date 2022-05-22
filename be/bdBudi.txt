@@ -7,6 +7,7 @@ CREATE TABLE `findbunker`.`user` (
   `email` VARCHAR(45) NOT NULL,
   `phone_number` VARCHAR(45) NULL,
   `address` VARCHAR(45) NULL,
+  `has_reservation` int,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   UNIQUE INDEX `identity_id_UNIQUE` (`identity_id` ASC) VISIBLE);
