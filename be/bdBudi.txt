@@ -15,12 +15,15 @@ CREATE TABLE `findbunker`.`user` (
 CREATE TABLE `findbunker`.`bunker` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `admin_name` VARCHAR(45) NOT NULL,
+  `admin_email` VARCHAR(45),
+  `admin_number` VARCHAR(45),
   `name` VARCHAR(45) NOT NULL,
   `location` VARCHAR(45),
   `max_capacity` INT,
   `free_slots` INT,
   `utilities` VARCHAR(45),
   `available` TINYINT,
+  `rooms_number` INT,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
 
