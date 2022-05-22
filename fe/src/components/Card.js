@@ -150,7 +150,7 @@ function Card({ data, userData, reservations }) {
             <h1>Capacity: {`${data.free_slots} / ${data.max_capacity}`}</h1>
             <button onClick={handleTransition} className='bg-custom_light_pink text-black rounded-md p-2 hover:bg-slate-400 duration-200 shadow-lg'>More Info</button>
             <button onClick={handleReserve} className='bg-custom_light_pink text-black rounded-md p-2 hover:bg-slate-400 duration-200 shadow-lg'>Reserve </button>
-            <button onClick={handleLeave} className='bg-custom_light_pink text-black rounded-md p-2 hover:bg-slate-400 duration-200 shadow-lg'>Stop Rezervation</button>
+            <button onClick={handleLeave} className='bg-custom_light_pink text-black rounded-md p-2 hover:bg-slate-400 duration-200 shadow-lg'>Cancel Reservation</button>
         </div>
     )
 }
