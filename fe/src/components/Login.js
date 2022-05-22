@@ -13,9 +13,6 @@ function Login() {
         if (isAuthenticated === true) {
             const identifyId = user['sub'].split("|")[1];
 
-            console.log(user);
-            console.log(user['http://localhost/roles']);
-
             axios
                 .get("http://localhost:8080/user/identityId?" + "identifyId=" + identifyId)
                 .then((response) => {
@@ -26,7 +23,8 @@ function Login() {
                         address: "",
                         fullName: user['family_name'] + ' '+ user['given_name'],
                         identityId: identifyId,
-                        phone_number: "" 
+                        phone_number: "",
+                        has_reservation: 0
                     }
                     axios
                         .post("http://localhost:8080/user/", body)
