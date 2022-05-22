@@ -18,6 +18,9 @@ function CardInfo() {
     const [utilities, setUtilities] = useState();
     const [rooms, setRooms] = useState();
     const { user } = useAuth0();
+    const [reservations, setReservations] = useState([]);
+    const [names, setNames] = useState("");
+    let x = "";
 
     useEffect(() => {
         axios
@@ -34,7 +37,29 @@ function CardInfo() {
             .catch((response) => {
                 console.log(response);
             });
+
+        axios
+            .get("http://localhost:8080/rezervation/all")
+            .then((response) => {
+                setReservations(response.data)
+            })
+            .catch((response) => {
+                console.log(response);
+            });
     }, [edit]);
+
+    useEffect(() => {
+        reservations.map((reservation) => {
+            axios
+                .get("http://localhost:8080/user?userId=" + reservation.refugee_id)
+                .then((response) => {
+                    setNames(names + " " + response.data.fullName);
+                })
+                .catch((response) => {
+                    console.log(response);
+                });
+        })
+    }, []);
 
     const handleClose = () => {
         setEdit(!edit);
@@ -83,79 +108,81 @@ function CardInfo() {
     }
 
     return (
-        <div className='fixed top-[20%] inset-x-[10%] w-[400px]'>
-            <div className='fixed top-[20%] inset-x-[90%]'>
-                {user['http://localhost/roles'] == 'bunker-admin' &&
-                    <div className='flex flex-row space-x-10'>
-                        <button onClick={handleClose}>
-                            <div className='scale-[200%] hover:bg-green-500 duration-200 rounded-md'>
-                                <AiFillEdit />
-                            </div>
-                        </button>
-                        <button onClick={handleDelete}>
-                            <div className='scale-[200%] hover:bg-red-500 duration-200 rounded-md'>
-                                <AiFillDelete />
-                            </div>
-                        </button>
-                    </div>
-                }
-            </div>
-            <div className='flex flex-col space-y-4 font-bold'>
-                <div className='flex flex-row space-x-5 items-center align-middle'>
-                    <div className='text-4xl'>
-                        {data.name}
+        <div className='flex flex-col'>
+            <div className='fixed top-[20%] inset-x-[10%] w-[400px]'>
+                <div className='fixed top-[20%] inset-x-[90%]'>
+                    {user['http://localhost/roles'] == 'bunker-admin' &&
+                        <div className='flex flex-row space-x-10'>
+                            <button onClick={handleClose}>
+                                <div className='scale-[200%] hover:bg-green-500 duration-200 rounded-md'>
+                                    <AiFillEdit />
+                                </div>
+                            </button>
+                            <button onClick={handleDelete}>
+                                <div className='scale-[200%] hover:bg-red-500 duration-200 rounded-md'>
+                                    <AiFillDelete />
+                                </div>
+                            </button>
+                        </div>
+                    }
+                </div>
+                <div className='flex flex-col space-y-4 font-bold'>
+                    <div className='flex flex-row space-x-5 items-center align-middle'>
+                        <div className='text-4xl'>
+                            {data.name}
+                        </div>
+                        <div>
+                            {data.free_slots < data.max_capacity ? <GoPrimitiveDot size="2.5em" color="green" /> : <GoPrimitiveDot size="2.5em" color="red" />}
+                        </div>
                     </div>
                     <div>
-                        {data.free_slots < data.max_capacity ? <GoPrimitiveDot size="2.5em" color="green" /> : <GoPrimitiveDot size="2.5em" color="red" />}
+                        <span>
+                            Bunker details
+                        </span>
                     </div>
-                </div>
-                <div>
-                    <span>
-                        Bunker details
-                    </span>
-                </div>
-                <div>
-                    <span>Nume: </span>
-                    {!edit ? data.name : <input className='bg-slate-200 rounded-lg' value={name} onChange={e => setName(e.target.value)} ></input>}
-                </div>
-                <div>
-                    <span>Location: </span>
-                    {!edit ? data.location : <input className='bg-slate-200 rounded-lg' value={location} onChange={e => setLocation(e.target.value)} ></input>}
-                </div>
-                <div>
-                    <span>Capacity: </span>
-                    {`${data.free_slots} / ${data.max_capacity}`}
-                </div>
-                <div>
-                    <span>Number of rooms: </span>
-                    {!edit ? data.rooms_number : <input className='bg-slate-200 rounded-lg' value={rooms} onChange={e => setRooms(e.target.value)} ></input>}
-                </div>
-                <div>
-                    <span>Utilities: </span>
-                    {!edit ? data.utilities : <input className='bg-slate-200 rounded-lg' value={utilities} onChange={e => setUtilities(e.target.value)} ></input>}
-                </div>
+                    <div>
+                        <span>Nume: </span>
+                        {!edit ? data.name : <input className='bg-slate-200 rounded-lg' value={name} onChange={e => setName(e.target.value)} ></input>}
+                    </div>
+                    <div>
+                        <span>Location: </span>
+                        {!edit ? data.location : <input className='bg-slate-200 rounded-lg' value={location} onChange={e => setLocation(e.target.value)} ></input>}
+                    </div>
+                    <div>
+                        <span>Capacity: </span>
+                        {`${data.free_slots} / ${data.max_capacity}`}
+                    </div>
+                    <div>
+                        <span>Number of rooms: </span>
+                        {!edit ? data.rooms_number : <input className='bg-slate-200 rounded-lg' value={rooms} onChange={e => setRooms(e.target.value)} ></input>}
+                    </div>
+                    <div>
+                        <span>Utilities: </span>
+                        {!edit ? data.utilities : <input className='bg-slate-200 rounded-lg' value={utilities} onChange={e => setUtilities(e.target.value)} ></input>}
+                    </div>
 
-                <div>
-                    <span>Contact</span>
-                </div>
-                <div>
-                    <span>Email: </span>
-                    {data.admin_email}
-                </div>
-                <div>
-                    <span>Number: </span>
-                    {data.admin_number}
-                </div>
-                {edit &&
-                    <div className='flex flex-row space-x-5'>
-                        <button onClick={handleSave} className='bg-green-500 rounded-md w-16 hover:bg-green-600'>
-                            Save
-                        </button>
-                        <button onClick={handleClose} className="hover:bg-red-500 duration-300 rounded-md w-16">
-                            Cancel
-                        </button>
+                    <div>
+                        <span>Contact</span>
                     </div>
-                }
+                    <div>
+                        <span>Email: </span>
+                        {data.admin_email}
+                    </div>
+                    <div>
+                        <span>Number: </span>
+                        {data.admin_number}
+                    </div>
+                    {edit &&
+                        <div className='flex flex-row space-x-5'>
+                            <button onClick={handleSave} className='bg-green-500 rounded-md w-16 hover:bg-green-600'>
+                                Save
+                            </button>
+                            <button onClick={handleClose} className="hover:bg-red-500 duration-300 rounded-md w-16">
+                                Cancel
+                            </button>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     )

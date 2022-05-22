@@ -8,6 +8,7 @@ function CardsList() {
     const [userData, setUserData] = useState();
 
     const { user } = useAuth0();
+    const [reservations, setReservations] = useState();
 
     useEffect(() => {
         axios
@@ -28,6 +29,15 @@ function CardsList() {
             .catch((response) => {
             });
 
+        axios
+            .get("http://localhost:8080/rezervation/all")
+            .then((response) => {
+                setReservations(response.data);
+            })
+            .catch((response) => {
+                console.log(response)
+            });
+
     }, [cards, userData]);
 
 
@@ -35,6 +45,7 @@ function CardsList() {
         <Card
             data={bunker}
             userData={userData}
+            reservations={reservations}
             key={i}
         />
     ));

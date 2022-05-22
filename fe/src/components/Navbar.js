@@ -37,8 +37,8 @@ function NavBar() {
                             <Link className='no-underline font-semibold' to={"/profile"}>Profile</Link>
                             <LogoutButton />
                         </div>
-                        <div className='flex flex-row items-center space-x-3'>
-                            <img src={user['picture']} className='rounded-[50%] scale-90'></img>
+                        <div className='flex flex-row items-center space-x-3 max-h-24'>
+                            <img src={user['picture']} className='rounded-[50%] scale-75'></img>
                         </div>
                     </div>
                 }
